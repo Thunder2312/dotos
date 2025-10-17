@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <div class="inputField">
+    <input
+      type="text"
+      name="username"
+      [(ngModel)]="enteredUsername"
+      placeholder="username..."
+      required
+    />
+
+    <div class="password-wrapper">
+      <input
+        type="password"
+        name="password"
+        class="password-input"
+        placeholder="Password"
+        [(ngModel)]="enteredPassword"
+        appPasswordToggle
+        required
+      />
+    </div>
+
+    <button class="submit" type="submit" name="Login">Login</button>
+
+    <button class="signup" type="button" (click)="gotoSignup()">
+      New Here? Sign up Please
+    </button>
+
+    <!-- Show error message on failed login -->
+    <div *ngIf="loginError" class="error">
+      {{ loginError }}
+    </div>
+  </div>
+</form>

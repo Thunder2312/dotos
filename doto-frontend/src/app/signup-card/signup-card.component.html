@@ -1,0 +1,40 @@
+<form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+  <div class="signup">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      placeholder="Email..."
+      id="email"
+      name="email"
+      [(ngModel)]="userData.email"
+      [ngModelOptions]="{standalone: true}"
+    />
+
+    <label for="username">Username</label>
+    <input
+      type="text"
+      placeholder="Username...."
+      id="username"
+      name="username"
+      [(ngModel)]="userData.username"
+      [ngModelOptions]="{standalone: true}"
+    />
+    <label for="password">Password</label>
+    <div class="password-wrapper">
+      
+      <input
+        type="password"
+        class="password-input"
+        appPasswordToggle
+        placeholder="Password"
+        [(ngModel)]="userData.password"
+        [ngModelOptions]="{standalone: true}"
+      />
+    </div>
+
+   
+    <button type="submit">Sign Up</button>
+
+    <button type="button" (click)="goToLogin()">Already have an account? Login</button>
+  </div>
+</form>

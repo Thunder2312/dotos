@@ -1,0 +1,51 @@
+<div class="inputField">
+  <h1>Add Task</h1>
+  <form #taskForm="ngForm" (ngSubmit)="onSubmitTask()">
+    <div>
+      <label for="title">Title</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        [(ngModel)]="task.title"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="3"
+        [(ngModel)]="task.description"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="date">Due Date</label>
+      <input
+        id="date"
+        name="dueDate"
+        type="date"
+        [(ngModel)]="task.dueDate"
+      />
+    </div>
+
+    <div>
+      <label for="status">Status</label>
+      <select
+        id="status"
+        name="status"
+        class="status"
+        [(ngModel)]="task.status"
+      >
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <button type="submit">Add Task</button>
+    <button type="button" (click)="onCancel()">Cancel</button>
+  </form>
+</div>

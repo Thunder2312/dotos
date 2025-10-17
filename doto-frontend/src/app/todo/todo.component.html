@@ -1,0 +1,56 @@
+<div class="Add-Task">
+    <button class="plus" (click)="openTaskDialog()">+</button>
+</div>
+
+<div class="logout">
+  <p>Hello, {{username}}</p>
+  <button class="logout" (click)="onLogout()">LogOut</button>
+</div>
+
+
+<div class="container">
+  <div class="todos">
+    <h3>Pending Tasks</h3>
+    <div class="tasks-container">
+      @for (task of tasks; track (task._id)) {
+        @if (task.status !== 'Completed') {
+          <div class="task" cdkDrag>
+            <div class="task-content" >
+              <h3>{{ task.title }}</h3>
+              <p class="description">{{ task.description }}</p>
+              <p class="due-date"><strong>Due:</strong> {{ task.dueDate | date }}</p>
+              <p class="status"><strong>Status:</strong> {{ task.status }}</p>
+            </div>
+            <div class="task-actions">
+              <button class="Edit" (click)="editTask(task)"><i class="fa-solid fa-pen"></i></button>
+              <button class="Delete" (click)="deleteTask(task._id)"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+
+  <div class="done-tasks">
+    <h3>Completed Tasks</h3>
+    <div class="tasks-container">
+      @for (task of tasks; track (task._id)) {
+        @if (task.status === 'Completed') {
+          <div class="task completed">
+            <div class="task-content">
+              <h3>{{ task.title }}</h3>
+              <p class="description">{{ task.description }}</p>
+              <p class="due-date"><strong>Due:</strong> {{ task.dueDate | date }}</p>
+              <p class="status"><strong>Status:</strong> {{ task.status }}</p>
+            </div>
+            <div class="task-actions">
+              <button class="Edit" (click)="editTask(task)"><i class="fa-solid fa-pen"></i></button>
+              <button class="Delete" (click)="deleteTask(task._id)"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>
+

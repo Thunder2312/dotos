@@ -1,0 +1,35 @@
+
+body {
+background: linear-gradient(135deg, #ffb3ba 0%, #ffccd5 50%, #ffd1dc 100%);
+  color: #000000;
+  transition: background-color 0.3s, color 0.3s;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 2.5rem; /* Leave space for the eye button */
+}
+
+.eye-button {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.eye-button i {
+  font-size: 1rem;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
