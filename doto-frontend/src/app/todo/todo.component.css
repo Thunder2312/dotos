@@ -82,10 +82,36 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   color: #27ae60;
 }
 
+/* CRITICAL FIX: Ensure drop zones always have minimum height */
 .tasks-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+  min-height: 400px; /* This ensures empty drop zones are clickable */
+  padding: 1rem;
+  border: 2px dashed transparent;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+/* Visual feedback when dragging over empty container */
+.tasks-container.cdk-drop-list-dragging {
+  border-color: #27ae60;
+  background-color: rgba(39, 174, 96, 0.05);
+}
+
+/* Empty state message */
+.tasks-container:empty::after {
+  content: 'Drop tasks here';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  font-style: italic;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 3rem;
 }
 
 .task {
@@ -97,10 +123,10 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   min-height: 200px;
-  /* Remove max-height to allow expansion */
   position: relative;
   overflow: hidden;
 }
+
 .task::before {
   content: '';
   position: absolute;
@@ -131,8 +157,8 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   gap: 0.75rem;
   padding-right: 1rem;
   padding-left: 0.5rem;
-  overflow: hidden; /* Prevent horizontal overflow */
-  max-width: 100%; /* Ensure content doesn't exceed card width */
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .task-content h3 {
@@ -148,7 +174,7 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  white-space: normal; /* Allow title to wrap to multiple lines */
+  white-space: normal;
   line-height: 1.3;
 }
 
@@ -162,9 +188,9 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   font-size: 0.95rem;
   color: #2d3436;
   line-height: 1.5;
-  word-wrap: break-word; /* Break long words */
-  overflow-wrap: break-word; /* Alternative for better browser support */
-  word-break: break-word; /* Ensure very long words break */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -179,7 +205,7 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
-  white-space: normal; /* Allow text to wrap naturally */
+  white-space: normal;
 }
 
 .task-actions {
@@ -226,16 +252,6 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   box-shadow: 0 4px 12px rgba(214, 48, 49, 0.4);
 }
 
-.tasks-container:empty::after {
-  content: 'No tasks yet';
-  display: block;
-  text-align: center;
-  padding: 3rem;
-  color: #999;
-  font-style: italic;
-  font-size: 1.1rem;
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
   .container {
@@ -244,6 +260,10 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   
   .todos, .done-tasks {
     width: 100%;
+  }
+  
+  .tasks-container {
+    min-height: 300px; /* Slightly smaller on tablets */
   }
 }
 
@@ -270,6 +290,7 @@ button[class="plus"]:hover, button[class="logout"]:hover {
   
   .tasks-container {
     grid-template-columns: 1fr;
+    min-height: 250px; /* Smaller on mobile */
   }
   
   .container {
@@ -329,4 +350,33 @@ button[class="plus"]:hover, button[class="logout"]:hover {
     height: 40px;
     font-size: 1rem;
   }
+  
+  .tasks-container {
+    min-height: 200px; /* Even smaller on small phones */
+  }
+}
+
+/* Dragging preview style */
+.cdk-drag-preview {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  opacity: 0.95;
+}
+
+/* Dragging placeholder (shows where item will go) */
+.cdk-drag-placeholder {
+  opacity: 0.2;
+  border: 2px dashed #999;
+  min-height: 100px;
+  border-radius: 12px;
+}
+
+/* Cursor change when dragging */
+.cdk-drag-animating {
+  transition: transform 0.2s ease;
+}
+
+/* Highlight drop zones when dragging */
+.cdk-drop-list-dragging .task:not(.cdk-drag-preview) {
+  opacity: 0.6;
 }

@@ -1,56 +1,79 @@
+<!-- Add Task Button -->
 <div class="Add-Task">
-    <button class="plus" (click)="openTaskDialog()">+</button>
+  <button class="plus" (click)="openTaskDialog()">+</button>
 </div>
 
+<!-- Logout and Username Display -->
 <div class="logout">
-  <p>Hello, {{username}}</p>
+  <p>Hello, {{ username() }}</p>
   <button class="logout" (click)="onLogout()">LogOut</button>
 </div>
 
-
+<!-- Task Columns Container -->
 <div class="container">
+  <!-- Pending Tasks -->
   <div class="todos">
     <h3>Pending Tasks</h3>
-    <div class="tasks-container">
-      @for (task of tasks; track (task._id)) {
-        @if (task.status !== 'Completed') {
-          <div class="task" cdkDrag>
-            <div class="task-content" >
-              <h3>{{ task.title }}</h3>
-              <p class="description">{{ task.description }}</p>
-              <p class="due-date"><strong>Due:</strong> {{ task.dueDate | date }}</p>
-              <p class="status"><strong>Status:</strong> {{ task.status }}</p>
-            </div>
-            <div class="task-actions">
-              <button class="Edit" (click)="editTask(task)"><i class="fa-solid fa-pen"></i></button>
-              <button class="Delete" (click)="deleteTask(task._id)"><i class="fa-solid fa-trash"></i></button>
-            </div>
+    <div class="tasks-container"
+         cdkDropList
+         id="pendingTasks"
+         [cdkDropListData]="pendingTasks()"
+         [cdkDropListConnectedTo]="['completedTasks']"
+         (cdkDropListDropped)="onTaskDrop($event, 'Pending')">
+
+      @for (task of pendingTasks(); track task._id) {
+        <div class="task"
+             cdkDrag
+             [cdkDragData]="task">
+          <div class="task-content">
+            <h3>{{ task.title }}</h3>
+            <p class="description">{{ task.description }}</p>
+            <p class="due-date"><strong>Due:</strong> {{ task.dueDate | date }}</p>
+            <p class="status"><strong>Status:</strong> {{ task.status }}</p>
           </div>
-        }
+          <div class="task-actions">
+            <button class="Edit" (click)="editTask(task)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="Delete" (click)="deleteTask(task._id)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
       }
     </div>
   </div>
 
+  <!-- Completed Tasks -->
   <div class="done-tasks">
     <h3>Completed Tasks</h3>
-    <div class="tasks-container">
-      @for (task of tasks; track (task._id)) {
-        @if (task.status === 'Completed') {
-          <div class="task completed">
-            <div class="task-content">
-              <h3>{{ task.title }}</h3>
-              <p class="description">{{ task.description }}</p>
-              <p class="due-date"><strong>Due:</strong> {{ task.dueDate | date }}</p>
-              <p class="status"><strong>Status:</strong> {{ task.status }}</p>
-            </div>
-            <div class="task-actions">
-              <button class="Edit" (click)="editTask(task)"><i class="fa-solid fa-pen"></i></button>
-              <button class="Delete" (click)="deleteTask(task._id)"><i class="fa-solid fa-trash"></i></button>
-            </div>
+    <div class="tasks-container"
+         cdkDropList
+         id="completedTasks"
+         [cdkDropListData]="completedTasks()"
+         [cdkDropListConnectedTo]="['pendingTasks']"
+         (cdkDropListDropped)="onTaskDrop($event, 'Completed')">
+
+      @for (task of completedTasks(); track task._id) {
+        <div class="task completed"
+             cdkDrag
+             [cdkDragData]="task">
+          <div class="task-content">
+            <h3>{{ task.title }}</h3>
+            <p class="description">{{ task.description }}</p>
+            <p class="due-date"><strong>Due:</strong> {{ task.dueDate | date }}</p>
+            <p class="status"><strong>Status:</strong> {{ task.status }}</p>
           </div>
-        }
+          <div class="task-actions">
+            <button class="Edit" (click)="editTask(task)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="Delete" (click)="deleteTask(task._id)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
       }
     </div>
   </div>
 </div>
-

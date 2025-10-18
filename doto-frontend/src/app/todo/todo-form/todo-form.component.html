@@ -32,19 +32,6 @@
       />
     </div>
 
-    <div>
-      <label for="status">Status</label>
-      <select
-        id="status"
-        name="status"
-        class="status"
-        [(ngModel)]="task.status"
-      >
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-      </select>
-    </div>
-
     <button type="submit">Add Task</button>
     <button type="button" (click)="onCancel()">Cancel</button>
   </form>
